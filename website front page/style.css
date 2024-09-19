@@ -1,0 +1,149 @@
+    *{
+        padding: 0;
+        margin: 0;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .header {
+        min-height: 100vh;
+        width: 100%;
+        background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url(/beluga/Musashino_University_Building_1_\(2013\).jpg);
+        background-position: center;
+        background-size: cover;
+        position: relative;
+    }
+
+    nav {
+        display: flex;
+        padding: 2% 6%;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    nav img {
+        width: 300px;
+        left: 200px; 
+        object-position: 5,4;
+    }
+
+    .nav-links {
+        flex: 1;
+        text-align: right;
+    }
+
+    .nav-links ul li {
+        list-style: none;
+        display: inline-block;
+        padding: 10px 10px;
+        position: relative;
+
+    }
+
+    .nav-links ul li a {
+        color: bisque;
+        text-decoration: none;
+        font-size: 20px;
+
+    }
+
+    .nav-links ul li::after {
+        content: '';
+        width: 0;
+        height: 2px;
+        background-color: rgb(255, 0, 0);
+        display: block;
+        margin-top: auto;
+        transition: 0.5s;
+    }
+
+    .nav-links ul li:hover::after {
+        width: 100%;
+
+    }
+
+    .text-box {
+        width: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .text-box h1 {
+        font-size: 62px;
+
+    }
+
+    .text-box p {
+        font-size: 15px;
+
+    }
+
+    .text-box a {
+        color: bisque;
+
+    }
+
+    .hero-btn {
+        display: inline-block;
+        text-decoration: none;
+        border: 1px solid;
+        padding: 12px 34px;
+        font-size: 15px;
+        background: transparent;
+        position: relative;
+    }
+
+    .hero-btn:hover {
+        border: 1px solid;
+        background: red;
+        transition: 1.5s;
+    }
+
+    .about {
+        width: 80%;
+        margin: auto;
+        text-align: center;
+        padding-top: 100px;
+    }
+
+    .about h1 {
+        font-size: 40px;
+
+    }
+
+    .about p {
+        font-size: 20px;
+    }
+
+    .row {
+        margin-top: 5%;
+
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .about-col {
+        flex-basis: 31%;
+        background: #fff3f3;
+        border-radius: 10px;
+        margin: 5%;
+        padding: 20px 12px;
+        box-sizing: border-box;
+        transition: 0.5s;
+    }
+
+    .about-col:hover {
+        box-shadow: 0 0 20px 0px black;
+    }
+
+    .blog h1 {
+        text-align: center;
+
+    }
+
+    .row {
+        align-items: center;
+    }
