@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ka">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Star Wars Characters Gallery - Template</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>🌟 Star Wars Characters Gallery</h1>
+
+      <div class="app-layout">
+        <div class="characters-container">
+          <div class="search-container">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search characters..."
+              value="Luke"
+            />
+          </div>
+
+          <!-- Loading State -->
+          <div class="loading-indicator">
+            Loading characters...
+          </div>
+
+          <!-- Error State -->
+          <div class="error-indicator">
+            <h3>⚠️ Something went wrong</h3>
+            <p>Failed to load characters. Please try again.</p>
+          </div>
+
+          <!-- No Results State -->
+          <div class="no-results">
+            <h3>🔍 No characters found</h3>
+            <p>Try adjusting your search terms.</p>
+          </div>
+
+          <div class="characters-grid">
+            <div class="character-card">
+              <span class="character-name">Luke Skywalker</span>
+              <button class="favorite-btn" data-id="1">
+                <span class="favorite-icon">🤍</span>
+              </button>
+            </div>
+
+            <div class="character-card favorite">
+              <span class="character-name">Princess Leia</span>
+              <button class="favorite-btn active" data-id="5">
+                <span class="favorite-icon">❤️</span>
+              </button>
+            </div>
+
+            <div class="character-card">
+              <span class="character-name">Darth Vader</span>
+              <button class="favorite-btn" data-id="4">
+                <span class="favorite-icon">🤍</span>
+              </button>
+            </div>
+
+            <div class="character-card favorite">
+              <span class="character-name">Obi-Wan Kenobi</span>
+              <button class="favorite-btn active" data-id="10">
+                <span class="favorite-icon">❤️</span>
+              </button>
+            </div>
+
+            <div class="character-card">
+              <span class="character-name">Han Solo</span>
+              <button class="favorite-btn" data-id="14">
+                <span class="favorite-icon">🤍</span>
+              </button>
+            </div>
+
+            <div class="character-card favorite">
+              <span class="character-name">Yoda</span>
+              <button class="favorite-btn active" data-id="20">
+                <span class="favorite-icon">❤️</span>
+              </button>
+            </div>
+
+            <div class="character-card">
+              <span class="character-name">Chewbacca</span>
+              <button class="favorite-btn" data-id="13">
+                <span class="favorite-icon">🤍</span>
+              </button>
+            </div>
+
+            <div class="character-card">
+              <span class="character-name">R2-D2</span>
+              <button class="favorite-btn" data-id="3">
+                <span class="favorite-icon">🤍</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="favorites-container">
+          <div class="card">
+            <h2>Add Character</h2>
+            <div class="add-character-container">
+              <input
+                type="text"
+                id="addCharacterInput"
+                placeholder="Add new character to favorites..."
+              />
+              <button id="addCharacterBtn">Add</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Favorites</h2>
+            <div class="favorites-counter">
+              <span>Total favorites: </span>
+              <span class="favorites-count">3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

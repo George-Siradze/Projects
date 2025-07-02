@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars Characters Gallery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 Star Wars Characters Gallery</h1>
+
+        <div class="app-layout">
+            <div class="characters-container">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search characters...">
+                </div>
+
+                <div class="loading-indicator" id="loadingIndicator">Loading characters...</div>
+
+                <div class="error-indicator" id="errorIndicator" style="display: none;">
+                    <h3>⚠️ Something went wrong</h3>
+                    <p>Failed to load characters. Please try again.</p>
+                </div>
+
+                <div class="characters-grid" id="charactersGrid"></div>
+
+                <div class="no-results" id="noResultsIndicator" style="display: none;">
+                    <h3>🔍 No characters found</h3>
+                    <p>Try adjusting your search terms.</p>
+                </div>
+            </div>
+
+            <div class="favorites-container">
+                <div class="card">
+                    <h2>Add Character</h2>
+                    <div class="add-character-container">
+                        <input type="text" id="addCharacterInput" placeholder="Add new character to favorites...">
+                        <button id="addCharacterBtn">Add</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Favorites</h2>
+                    <div class="favorites-counter">
+                        <span>Total favorites: </span>
+                        <span class="favorites-count" id="favoritesCount">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const apiURL = 'https://swapi.tech/api/people';
+            const charactersGrid = document.getElementById('charactersGrid');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const errorIndicator = document.getElementById('errorIndicator');
+            const noResultsIndicator = document.getElementById('noResultsIndicator');
+            const searchInput = document.getElementById('searchInput');
+            const addCharacterInput = document.getElementById('addCharacterInput');
+            const addCharacterBtn = document.getElementById('addCharacterBtn');
+            const favoritesCount = document.getElementById('favoritesCount');
+
+            let characters = [];
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            let customCharacters = JSON.parse(localStorage.getItem('customCharacters')) || [];
+
+            function updateFavoritesCount() {
+                favoritesCount.textContent = favorites.length;
+            }
+
+            function toggleFavorite(character) {
+                const index = favorites.findIndex(fav => fav.name === character.name);
+                if (index !== -1) {
+                    favorites.splice(index, 1);
+                } else {
+                    favorites.push(character);
+                }
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+                updateFavoritesCount();
+            }
+
+            function renderCharacters(filteredCharacters = characters) {
+                charactersGrid.innerHTML = '';
+                filteredCharacters.forEach(character => {
+                    const characterCard = document.createElement('div');
+                    characterCard.className = 'character-card';
+                    characterCard.innerHTML = `
+                        <span class="character-name">${character.name}</span>
+                        <button class="favorite-btn" data-name="${character.name}">
+                            <span class="favorite-icon">${favorites.some(fav => fav.name === character.name) ? '❤️' : '🤍'}</span>
+                        </button>
+                    `;
+                    charactersGrid.appendChild(characterCard);
+                });
+
+                document.querySelectorAll('.favorite-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const characterName = this.getAttribute('data-name');
+                        const character = characters.find(char => char.name === characterName) || customCharacters.find(char => char.name === characterName);
+                        toggleFavorite(character);
+                        renderCharacters(filteredCharacters);
+                    });
+                });
+            }
+
+            function fetchCharacters() {
+                loadingIndicator.style.display = 'block';
+                errorIndicator.style.display = 'none';
+                noResultsIndicator.style.display = 'none';
+
+                fetch(apiURL)
+                    .then(response => response.json())
+                    .then(data => {
+                        characters = data.results.map(item => ({ name: item.name }));
+                        characters = characters.concat(customCharacters);
+                        renderCharacters();
+                        loadingIndicator.style.display = 'none';
+                    })
+                    .catch(() => {
+                        loadingIndicator.style.display = 'none';
+                        errorIndicator.style.display = 'block';
+                    });
+            }
+
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                const filteredCharacters = characters.filter(character => character.name.toLowerCase().includes(query));
+                renderCharacters(filteredCharacters);
+
+                noResultsIndicator.style.display = filteredCharacters.length ? 'none' : 'block';
+            });
+
+            addCharacterBtn.addEventListener('click', function() {
+                const newCharacterName = addCharacterInput.value.trim();
+                if (newCharacterName) {
+                    const newCharacter = { name: newCharacterName };
+                    customCharacters.push(newCharacter);
+                    localStorage.setItem('customCharacters', JSON.stringify(customCharacters));
+                    characters.push(newCharacter);
+                    renderCharacters();
+                    addCharacterInput.value = '';
+                }
+            });
+
+            updateFavoritesCount();
+            fetchCharacters();
+        });
+    </script>
+</body>
+</html>
